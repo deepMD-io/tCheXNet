@@ -2,15 +2,6 @@ from keras.preprocessing.image import load_img, img_to_array
 import pandas as pd
 import numpy as np
 
-# given a csv file
-# return a panda dataframe
-# path -> image path
-def load_image_info(csv_file_path):
-    # read the csv file
-    dataset_df = pd.read_csv(csv_file_path)
-    # return the file
-    return dataset_df
-
 # given a image path list
 # return a numpy array vertically stacking the images
 def get_image_numpy_array(image_path_list):
@@ -40,11 +31,31 @@ def get_image_numpy_array(image_path_list):
     # return the numpy array
     return x
 
-if __name__ == '__main__':
-    csv_file_path = 'chexpert/valid_frontal_6_classes.csv'
-    dataset_df = load_image_info(csv_file_path)
+# given a csv file
+# load the data
+# return x, y (numpy array)
+def load_data_from_csv(csv_file_path):
+    dataset_df = pd.read_csv(csv_file_path)
 
     image_path_list = 'chexpert/' + dataset_df['Path']
     images = get_image_numpy_array(image_path_list)
 
-    print(images.shape)
+    x = images
+    y = dataset_df[
+        ['Cardiomegaly',
+        'Edema',
+        'Consolidation',
+        'Pneumonia',
+        'Atelectasis',
+        'Pneumothorax',]
+    ].to_numpy()
+
+    return x, y
+
+
+
+if __name__ == '__main__':
+    csv_file_path = 'chexpert/valid_frontal_6_classes.csv'
+    x_test, y_test = load_data_from_csv(csv_file_path)
+
+    print(y_test.shape)
