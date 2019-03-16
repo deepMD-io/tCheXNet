@@ -1,0 +1,16 @@
+Script to process the file
+
+--------------------------------
+import pandas as pd
+
+# read the csv file
+dataset_df = pd.read_csv("chexpert/train_valid_frontal_6_classes_real_no_zeros.csv")
+
+# replace "-1" by "0"
+dataset_df = dataset_df.replace(-1, 0)
+
+#fill the nan values with 0
+dataset_df = dataset_df.fillna(value = 0)
+
+#output, without writting out row numbers
+dataset_df.to_csv('t.csv', index=False)
