@@ -60,8 +60,8 @@ def get_model():
     return base_model, model
 
 def main():
-    batch_size = 128
-    epochs = 100
+    batch_size = 32
+    epochs = 200
 
     save_dir = os.path.join(
         os.getcwd(),
@@ -70,7 +70,7 @@ def main():
     if not os.path.isdir(save_dir):
         os.makedirs(save_dir)
 
-    filepath = "saved_models/94482_23620_keras_chexpert_pretrained_chexnet_512_6_{epoch:02d}_{val_acc:.2f}.h5"
+    filepath = "saved_models/94482_23620_keras_chexpert_pretrained_chexnet_512_6_{epoch:03d}_{val_loss:.3f}_{val_acc:.3f}.h5"
     checkpoint = ModelCheckpoint(
         filepath,
         monitor='val_acc',

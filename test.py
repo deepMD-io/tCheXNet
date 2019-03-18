@@ -11,7 +11,7 @@ def main():
         os.getcwd(),
         'saved_models'
     )
-    model_name = 'keras_chexpert_pretrained_chexnet_512_6_epochs_10.h5'
+    model_name = '94482_23620_keras_chexpert_pretrained_chexnet_512_6_010_0.396_0.808.h5'
     model_path = os.path.join(save_dir, model_name)
 
     base_model, model = get_model()
