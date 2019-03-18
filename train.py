@@ -16,18 +16,17 @@ def get_model():
     # print a model summary
     # print_summary(base_model)
 
-    x = base_model.output
+    x = chexnet_model.output
     # Dropout layer
     x = Dropout(0.2)(x)
     # one more layer (relu)
-    x = Dense(512, activation='relu')(x)
+    #x = Dense(10, activation='relu')(x)
     # Dropout layer
-    x = Dropout(0.2)(x)
+    #x = Dropout(0.2)(x)
     # add a logistic layer -- let's say we have 6 classes
     predictions = Dense(
         6,
-        activation='sigmoid',
-        name='predictions')(x)
+        activation='sigmoid')(x)
 
     # this is the model we will use
     model = Model(
@@ -61,7 +60,7 @@ def get_model():
 
 def main():
     batch_size = 32
-    epochs = 200
+    epochs = 10
 
     save_dir = os.path.join(
         os.getcwd(),
@@ -70,7 +69,7 @@ def main():
     if not os.path.isdir(save_dir):
         os.makedirs(save_dir)
 
-    filepath = "saved_models/94482_23620_keras_chexpert_pretrained_chexnet_512_6_{epoch:03d}_{val_loss:.3f}_{val_acc:.3f}.h5"
+    filepath = "saved_models/94482_23620_keras_chexpert_pretrained_chexnet_p14_6_{epoch:03d}_{val_loss:.3f}_{val_acc:.3f}.h5"
     checkpoint = ModelCheckpoint(
         filepath,
         monitor='val_acc',
