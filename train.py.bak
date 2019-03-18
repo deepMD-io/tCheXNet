@@ -1,0 +1,176 @@
+'''
+#Train a simple deep CNN on the CIFAR10 small images dataset.
+It gets to 75% validation accuracy in 25 epochs, and 79% after 50 epochs.
+(it's still underfitting at that point, though).
+'''
+import keras
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Activation, Flatten
+from keras.preprocessing.image import ImageDataGenerator
+from generator import AugmentedImageSequence
+from keras.layers import Conv2D, MaxPooling2D
+from preprocess import load_data_from_csv
+import os
+import pandas as pd
+
+batch_size = 32
+num_classes = 6
+epochs = 10
+save_dir = os.path.join(
+    os.getcwd(),
+    'saved_models'
+)
+model_name = 'keras_chexpert_trained_model_epochs_10.h5'
+
+# The data, split between train and test sets:
+#(x_train, y_train), (x_test, y_test) = cifar10.load_data()
+#csv_file_path = 'chexpert/train_valid_frontal_6_classes_real_no_zeros_preprocessed.csv'
+#x_train, y_train = load_data_from_csv(csv_file_path)
+#csv_file_path = 'chexpert/valid_frontal_6_classes.csv'
+#x_test, y_test = load_data_from_csv(csv_file_path)
+
+#print('x_train shape:', x_train.shape)
+#print(x_train.shape[0], 'train samples')
+#print(x_test.shape[0], 'test samples')
+
+# Convert class vectors to binary class matrices.
+#y_train = keras.utils.to_categorical(y_train, num_classes)
+#y_test = keras.utils.to_categorical(y_test, num_classes)
+
+model = Sequential()
+model.add(Conv2D(32, (3, 3), padding='same',
+                 input_shape=(224,224,3)))
+model.add(Activation('relu'))
+model.add(Conv2D(32, (3, 3)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
+
+model.add(Conv2D(64, (3, 3), padding='same'))
+model.add(Activation('relu'))
+model.add(Conv2D(64, (3, 3)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
+
+model.add(Flatten())
+model.add(Dense(512))
+model.add(Activation('relu'))
+model.add(Dropout(0.5))
+model.add(Dense(num_classes))
+model.add(Activation('sigmoid'))
+
+# initiate RMSprop optimizer
+'''
+opt = keras.optimizers.rmsprop(
+    lr=0.0001,
+    decay=1e-6
+)
+'''
+# initiate Adam optimizer
+opt = keras.optimizers.Adam(
+    lr=0.001,
+    beta_1=0.9,
+    beta_2=0.999,
+    epsilon=None,
+    decay=0.0,
+    amsgrad=False
+)
+
+# Let's train the model using RMSprop
+model.compile(loss='categorical_crossentropy',
+              optimizer=opt,
+              metrics=['accuracy'])
+
+'''
+x_train = x_train.astype('float32')
+x_test = x_test.astype('float32')
+x_train /= 255
+x_test /= 255
+'''
+
+#print('Not using data augmentation.')
+'''
+model.fit(x_train, y_train,
+          batch_size=batch_size,
+          epochs=epochs,
+          validation_data=(x_test, y_test),
+          shuffle=True)
+'''
+
+'''
+# 20% training data to be used as validation data
+model.fit(x_train, y_train,
+          batch_size=batch_size,
+          epochs=epochs,
+          validation_split=0.2,
+          shuffle=True)
+'''
+
+csv_file_path = 'chexpert/train_valid_frontal_6_classes_real_no_zeros_preprocessed.csv'
+train_df = pd.read_csv(csv_file_path)
+#csv_file_path = 'chexpert/valid_frontal_6_classes.csv'
+#test_df = pd.read_csv(csv_file_path)
+'''
+datagen = ImageDataGenerator()
+train_generator = datagen.flow_from_dataframe(
+                    dataframe=train_df,
+                    directory='./',
+                    x_col='Path',
+                    y_col=['Cardiomegaly',
+                           'Edema',
+                           'Consolidation',
+                           'Pneumonia',
+                           'Atelectasis',
+                           'Pneumothorax'
+                    ],
+                    class_mode='other',
+                    target_size=(224,224),
+                    batch_size=batch_size)
+'''
+
+train_generator = AugmentedImageSequence(
+                    dataset_csv_file=csv_file_path,
+                    class_names=['Cardiomegaly',
+                           'Edema',
+                           'Consolidation',
+                           'Pneumonia',
+                           'Atelectasis',
+                           'Pneumothorax'],
+                    source_image_dir='./chexpert/',
+                    batch_size=batch_size)
+'''
+csv_file_path = 'chexpert/valid_frontal_6_classes.csv'
+train_generator = AugmentedImageSequence(
+                    dataset_csv_file=csv_file_path,
+                    class_names=['Cardiomegaly',
+                           'Edema',
+                           'Consolidation',
+                           'Pneumonia',
+                           'Atelectasis',
+                           'Pneumothorax'],
+                    source_image_dir='./chexpert/',
+                    batch_size=batch_size)
+'''
+
+STEP_SIZE_TRAIN=train_generator.steps
+#STEP_SIZE_VALID=valid_generator.n//valid_generator.batch_size
+model.fit_generator(generator=train_generator,
+                    steps_per_epoch=STEP_SIZE_TRAIN,
+                    #validation_data=valid_generator,
+                    #validation_steps=STEP_SIZE_VALID,
+                    epochs=epochs,
+                    use_multiprocessing=True)
+
+
+# Save model and weights
+if not os.path.isdir(save_dir):
+    os.makedirs(save_dir)
+model_path = os.path.join(save_dir, model_name)
+model.save(model_path)
+print('Saved trained model at %s ' % model_path)
+
+# Score trained model.
+#scores = model.evaluate(x_test, y_test, verbose=1)
+#print('Test loss:', scores[0])
+#print('Test accuracy:', scores[1])

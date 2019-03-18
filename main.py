@@ -7,12 +7,12 @@ from sklearn.metrics import roc_auc_score
 import pandas as pd
 
 target_classes = [
-    'Atelectasis',
     'Cardiomegaly',
-    'Consolidation',
     'Edema',
+    'Consolidation',
     'Pneumonia',
-    'Pneumothorax',
+    'Atelectasis',
+    'Pneumothorax'
 ]
 
 def main():
@@ -22,13 +22,13 @@ def main():
     x_test, y_test = load_data_from_csv(csv_file_path)
 
     # get model
-    model = get_chexnet_model()
+    base_model, model = get_chexnet_model()
 
     # preprocess images
-    x = chexnet_preprocess_input(x_test)
+    x_test = chexnet_preprocess_input(x_test)
 
     # predict the probability across all output classes
-    yhat = model.predict(x)
+    yhat = model.predict(x_test)
 
     # evaluation
     for target_class in target_classes:

@@ -78,7 +78,7 @@ def get_chexnet_model():
     model.load_weights(chexnet_weights)
 
     # return model
-    return model
+    return base_model, model
 
 if __name__ == '__main__':
     # get model
