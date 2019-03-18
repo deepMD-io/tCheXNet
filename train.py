@@ -9,22 +9,28 @@ import os
 import pandas as pd
 from generator import AugmentedImageSequence
 from main import target_classes
+from weights import get_class_weights
 
 def get_class_weight(csv_file_path, target_class):
-    # given the csv training file
-    # return class weight
-    # class_weight - dict of dict, ex: {"Effusion": { 0: 0.01, 1: 0.99 }, ... }
-    class_weight = {}
+    #total_counts - int
+    #class_positive_counts - dict of int, ex: {"Effusion": 300, "Infiltration": 500 ...}
+    #multiply - int, positve weighting multiply
 
     df = pd.read_csv(csv_file_path)
-    total_samples = df.shape[0]
-    for target_class in target_classes:
-        weight_dict = {}
-        weight_dict [0] = df.loc[(df[target_class] == 0)].shape[0] / total_samples
-        weight_dict [1] = df.loc[(df[target_class] == 1)].shape[0] / total_samples
-        class_weight[target_class] = weight_dict
+    total_counts = df.shape[0]
+    class_positive_counts = {}
+    multiply = 1
 
-    #print(class_weight)
+    for target_class in target_classes:
+        class_positive_counts[target_class] = df.loc[(df[target_class] == 1)].shape[0]
+
+    class_weight = get_class_weights(
+        total_counts,
+        class_positive_counts,
+        multiply
+    )
+
+    print(class_weight)
     return class_weight
 
 
