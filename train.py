@@ -10,6 +10,24 @@ import pandas as pd
 from generator import AugmentedImageSequence
 from main import target_classes
 
+def get_class_weight(csv_file_path, target_class):
+    # given the csv training file
+    # return class weight
+    # class_weight - dict of dict, ex: {"Effusion": { 0: 0.01, 1: 0.99 }, ... }
+    class_weight = {}
+
+    df = pd.read_csv(csv_file_path)
+    total_samples = df.shape[0]
+    for target_class in target_classes:
+        weight_dict = {}
+        weight_dict [0] = df.loc[(df[target_class] == 0)].shape[0] / total_samples
+        weight_dict [1] = df.loc[(df[target_class] == 1)].shape[0] / total_samples
+        class_weight[target_class] = weight_dict
+
+    #print(class_weight)
+    return class_weight
+
+
 def get_model():
     # get base model, model
     base_model, chexnet_model = get_chexnet_model()
@@ -69,7 +87,7 @@ def main():
     if not os.path.isdir(save_dir):
         os.makedirs(save_dir)
 
-    filepath = "saved_models/94482_23620_keras_chexpert_pretrained_chexnet_p14_6_{epoch:03d}_{val_loss:.3f}_{val_acc:.3f}.h5"
+    filepath = "saved_models/94482_23620_cw_keras_chexpert_pretrained_chexnet_p14_6_{epoch:03d}_{val_loss:.3f}_{val_acc:.3f}.h5"
     checkpoint = ModelCheckpoint(
         filepath,
         monitor='val_acc',
@@ -92,7 +110,11 @@ def main():
     #print_summary(model)
 
     csv_file_path = 'chexpert/train_94482_frontal_6_classes_real_no_zeros_preprocessed.csv'
-    train_df = pd.read_csv(csv_file_path)
+    #train_df = pd.read_csv(csv_file_path)
+
+    class_weight = get_class_weight(
+                    csv_file_path,
+                    target_classes)
 
     train_generator = AugmentedImageSequence(
                         dataset_csv_file=csv_file_path,
@@ -101,7 +123,7 @@ def main():
                         batch_size=batch_size)
 
     csv_file_path = 'chexpert/train_23620_frontal_6_classes_real_no_zeros_preprocessed.csv'
-    valid_df = pd.read_csv(csv_file_path)
+    #valid_df = pd.read_csv(csv_file_path)
 
     valid_generator = AugmentedImageSequence(
                         dataset_csv_file=csv_file_path,
@@ -111,14 +133,15 @@ def main():
 
     STEP_SIZE_TRAIN=train_generator.steps
     STEP_SIZE_VALID=valid_generator.steps
+
     model.fit_generator(generator=train_generator,
                         steps_per_epoch=STEP_SIZE_TRAIN,
                         validation_data=valid_generator,
                         validation_steps=STEP_SIZE_VALID,
                         epochs=epochs,
                         callbacks=callbacks_list,
+                        class_weight=class_weight,
                         use_multiprocessing=True)
-
 
     # Save model and weights
     #if not os.path.isdir(save_dir):
