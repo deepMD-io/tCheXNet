@@ -15,7 +15,7 @@ def get_class_weight(csv_file_path, target_class):
     #total_counts - int
     #class_positive_counts - dict of int, ex: {"Effusion": 300, "Infiltration": 500 ...}
     #multiply - int, positve weighting multiply
-
+    '''
     df = pd.read_csv(csv_file_path)
     total_counts = df.shape[0]
     class_positive_counts = {}
@@ -29,6 +29,16 @@ def get_class_weight(csv_file_path, target_class):
         class_positive_counts,
         multiply
     )
+    '''
+
+    df = pd.read_csv(csv_file_path)
+    total_counts = df.shape[0]
+    class_weight = []
+    for target_class in target_classes:
+        weight_dict = {}
+        weight_dict[0] = df.loc[(df[target_class] == 0)].shape[0] / total_counts
+        weight_dict[1] = df.loc[(df[target_class] == 1)].shape[0] / total_counts
+        class_weight.append(weight_dict)
 
     print(class_weight)
     return class_weight
