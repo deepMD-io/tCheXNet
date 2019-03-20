@@ -12,7 +12,7 @@ def main():
         'saved_models'
     )
 
-    model_name = '94482_23620_cw_keras_chexpert_pretrained_chexnet_p14_6_001_0.384_0.851.h5'
+    model_name = '94482_23620_keras_cw_chexpert_pretrained_chexnet_512_6_020_0.41554.h5'
     model_path = os.path.join(save_dir, model_name)
 
     base_model, model = get_model()

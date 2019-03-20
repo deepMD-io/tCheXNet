@@ -50,11 +50,11 @@ def get_model():
     # print a model summary
     # print_summary(base_model)
 
-    x = chexnet_model.output
+    x = base_model.output
     # Dropout layer
     x = Dropout(0.2)(x)
     # one more layer (relu)
-    x = Dense(10, activation='relu')(x)
+    x = Dense(512, activation='relu')(x)
     # Dropout layer
     x = Dropout(0.2)(x)
     #x = Dense(256, activation='relu')(x)
@@ -62,7 +62,7 @@ def get_model():
     #x = Dropout(0.2)(x)
     # add a logistic layer -- let's say we have 6 classes
     predictions = Dense(
-        6,
+        1,
         activation='sigmoid')(x)
 
     # this is the model we will use
@@ -73,7 +73,7 @@ def get_model():
 
     # first: train only the top layers (which were randomly initialized)
     # i.e. freeze all base_model layers
-    for layer in chexnet_model.layers:
+    for layer in base_model.layers:
         layer.trainable = False
 
     # initiate an Adam optimizer
@@ -106,7 +106,7 @@ def main():
     if not os.path.isdir(save_dir):
         os.makedirs(save_dir)
 
-    filepath = "saved_models/94482_23620_cw_keras_chexpert_pretrained_chexnet_p14_10_6_{epoch:03d}_{val_loss:.5f}.h5"
+    filepath = "saved_models/94482_23620_keras_cw_chexpert_pretrained_chexnet_512_1_{epoch:03d}_{val_loss:.5f}.h5"
     checkpoint = ModelCheckpoint(
         filepath,
         monitor='val_loss',

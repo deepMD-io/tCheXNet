@@ -7,11 +7,11 @@ from sklearn.metrics import roc_auc_score
 import pandas as pd
 
 target_classes = [
-    'Cardiomegaly',
-    'Edema',
-    'Consolidation',
-    'Pneumonia',
-    'Atelectasis',
+    #'Cardiomegaly',
+    #'Edema',
+    #'Consolidation',
+    #'Pneumonia',
+    #'Atelectasis',
     'Pneumothorax'
 ]
 
