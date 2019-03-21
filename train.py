@@ -52,11 +52,11 @@ def get_model():
 
     x = base_model.output
     # Dropout layer
-    x = Dropout(0.2)(x)
+    #x = Dropout(0.2)(x)
     # one more layer (relu)
     x = Dense(512, activation='relu')(x)
     # Dropout layer
-    x = Dropout(0.2)(x)
+    #x = Dropout(0.2)(x)
     #x = Dense(256, activation='relu')(x)
     # Dropout layer
     #x = Dropout(0.2)(x)
@@ -106,7 +106,7 @@ def main():
     if not os.path.isdir(save_dir):
         os.makedirs(save_dir)
 
-    filepath = "saved_models/94482_23620_keras_cw_chexpert_pretrained_chexnet_512_1_{epoch:03d}_{val_loss:.5f}.h5"
+    filepath = "saved_models/94482_23620_keras_cw_noDropOut_chexpert_pretrained_chexnet_512_1_{epoch:03d}_{val_loss:.5f}.h5"
     checkpoint = ModelCheckpoint(
         filepath,
         monitor='val_loss',
