@@ -3,7 +3,9 @@ from chexnet import chexnet_preprocess_input
 from chexnet import chexnet_class_name_to_index
 from preprocess import get_image_numpy_array
 from preprocess import load_data_from_csv
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score 
+from sklearn.metrics import f1_score
+#from sklearn.metrics import average_precision_score
 import pandas as pd
 
 target_classes = [
@@ -30,12 +32,16 @@ def main():
     # predict the probability across all output classes
     yhat = model.predict(x_test)
 
-    # evaluation
+    # evaluationsklearn.metrics.
     for target_class in target_classes:
         y_true = dataset_df[target_class]
         y_scores = yhat[:, chexnet_class_name_to_index[target_class]]
-        score = roc_auc_score(y_true, y_scores)
-        print(target_class, score)
+        roc_score = roc_auc_score(y_true, y_scores)
+        #f1 = f1_score(y_true, y_scores)
+        #prc_score = average_precision_score(y_true, y_scores)
+        #print(target_class, roc_score, prc_score)
+        print(target_class, roc_score)
+
 
 
 if __name__ == '__main__':
