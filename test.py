@@ -13,7 +13,7 @@ def main():
         'saved_models'
     )
 
-    model_name = '94482_23620_keras_cw_noDropOut_chexpert_pretrained_chexnet_512_1_002_0.60346.h5'
+    model_name = '94482_23620_keras_cw_noDropOut_chexpert_pretrained_chexnet_512_1_001_0.54064.h5'
     model_path = os.path.join(save_dir, model_name)
 
     base_model, model = get_model()
@@ -39,6 +39,9 @@ def main():
     for i, target_class in enumerate(target_classes):
         y_true = valid_df[target_class]
         y_scores = yhat[:, i]
+        # print out y_scores
+        for y_score in y_scores:
+            print(y_score)
         roc_score = roc_auc_score(y_true, y_scores)
         #prc_score = average_precision_score(y_true, y_scores)
         #print(target_class, roc_score, prc_score)

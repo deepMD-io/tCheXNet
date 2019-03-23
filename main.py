@@ -3,7 +3,7 @@ from chexnet import chexnet_preprocess_input
 from chexnet import chexnet_class_name_to_index
 from preprocess import get_image_numpy_array
 from preprocess import load_data_from_csv
-from sklearn.metrics import roc_auc_score 
+from sklearn.metrics import roc_auc_score
 from sklearn.metrics import f1_score
 #from sklearn.metrics import average_precision_score
 import pandas as pd
@@ -36,6 +36,9 @@ def main():
     for target_class in target_classes:
         y_true = dataset_df[target_class]
         y_scores = yhat[:, chexnet_class_name_to_index[target_class]]
+        # print out y_scores
+        #for y_score in y_scores:
+        #    print(y_score)
         roc_score = roc_auc_score(y_true, y_scores)
         #f1 = f1_score(y_true, y_scores)
         #prc_score = average_precision_score(y_true, y_scores)
