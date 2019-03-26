@@ -17,7 +17,7 @@ target_classes = [
 
 def main():
     # load data from csv
-    csv_file_path = 'chexpert/v.csv'
+    csv_file_path = 'chexpert/valid_frontal_6_classes.csv'
     dataset_df = pd.read_csv(csv_file_path)
     x_test, y_test = load_data_from_csv(csv_file_path)
 
