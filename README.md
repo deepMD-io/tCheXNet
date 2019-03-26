@@ -5,4 +5,11 @@ Pneumothorax (collapsed lung or dropped lung) is an urgent situation and can be 
 
 ## Dataset
 Please download the CheXpert dataset in the following link
+```
 https://stanfordmlgroup.github.io/competitions/chexpert/
+```
+
+## Environment
+* [Keras 2.2.4](https://keras.io)
+* [scikit-learn 0.20.3](http://scikit-learn.org/stable/index.html)
+
