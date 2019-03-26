@@ -81,6 +81,12 @@ def get_chexnet_model():
     return base_model, model
 
 if __name__ == '__main__':
+    '''
+    What this script is doing is that
+    1. It first loads a chexnet nodel (DenseNet121),
+       where the weight is from https://github.com/brucechou1983/CheXNet-Keras
+    2. It then print a summary of the model architecture
+    '''
     # get model
     model = get_chexnet_model()
     # print a model summary

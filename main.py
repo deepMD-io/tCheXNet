@@ -4,8 +4,6 @@ from chexnet import chexnet_class_name_to_index
 from preprocess import get_image_numpy_array
 from preprocess import load_data_from_csv
 from sklearn.metrics import roc_auc_score
-from sklearn.metrics import f1_score
-#from sklearn.metrics import average_precision_score
 import pandas as pd
 
 target_classes = [
@@ -19,7 +17,7 @@ target_classes = [
 
 def main():
     # load data from csv
-    csv_file_path = 'chexpert/valid_frontal_6_classes.csv'
+    csv_file_path = 'chexpert/v.csv'
     dataset_df = pd.read_csv(csv_file_path)
     x_test, y_test = load_data_from_csv(csv_file_path)
 
@@ -32,17 +30,12 @@ def main():
     # predict the probability across all output classes
     yhat = model.predict(x_test)
 
-    # evaluationsklearn.metrics.
+    # evaluation
     for target_class in target_classes:
         y_true = dataset_df[target_class]
         y_scores = yhat[:, chexnet_class_name_to_index[target_class]]
-        # print out y_scores
-        #for y_score in y_scores:
-        #    print(y_score)
         roc_score = roc_auc_score(y_true, y_scores)
-        #f1 = f1_score(y_true, y_scores)
-        #prc_score = average_precision_score(y_true, y_scores)
-        #print(target_class, roc_score, prc_score)
+        # print the roc score
         print(target_class, roc_score)
 
 
@@ -55,12 +48,8 @@ if __name__ == '__main__':
     2. It then made predictions on the Chexpert validation dataset (frontal only)
        The validation data contains 202 frontal chest x-ray images,
        from 200 unique patients.
-    3. The performance was then evaluated on the 6 common classes, which are
-       'Atelectasis',
-       'Cardiomegaly',
-       'Consolidation',
-       'Edema',
-       'Pneumonia',
+       It is the testing dataset for this study
+    3. The performance was then evaluated on one of the common classes, which is
        'Pneumothorax',
     '''
     main()
