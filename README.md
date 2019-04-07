@@ -13,7 +13,7 @@ https://stanfordmlgroup.github.io/competitions/chexpert/
 * [Keras 2.2.4](https://keras.io)
 * [scikit-learn 0.20.3](http://scikit-learn.org/stable/index.html)
 
-To run tCheXNet, run the following codes to prepare a new anaconda environment
+To run tCheXNet, run the following code to prepare a new anaconda environment
 
 ```
 conda create -n tCheXNet python=2.7 keras scikit-learn pandas PIL
