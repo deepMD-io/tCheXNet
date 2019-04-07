@@ -16,6 +16,6 @@ https://stanfordmlgroup.github.io/competitions/chexpert/
 To run tCheXNet, run the following codes to prepare a new anaconda environment
 
 ```
-conda create -n tCheXNet python=3.6 keras scikit-learn pandas PIL
+conda create -n tCheXNet python=2.7 keras scikit-learn pandas PIL
 ```
 
