@@ -19,3 +19,8 @@ To run tCheXNet, run the following codes to prepare a new anaconda environment
 conda create -n tCheXNet python=2.7 keras scikit-learn pandas PIL
 ```
 
+To activate the environment, use
+
+```
+conda activate tCheXNet
+```
