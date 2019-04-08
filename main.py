@@ -7,13 +7,14 @@ from sklearn.metrics import roc_auc_score
 import pandas as pd
 
 target_classes = [
-    #'Cardiomegaly',
-    #'Edema',
-    #'Consolidation',
-    #'Pneumonia',
-    #'Atelectasis',
+    # 'Cardiomegaly',
+    # 'Edema',
+    # 'Consolidation',
+    # 'Pneumonia',
+    # 'Atelectasis',
     'Pneumothorax'
 ]
+
 
 def main():
     # load data from csv
@@ -37,7 +38,6 @@ def main():
         roc_score = roc_auc_score(y_true, y_scores)
         # print the roc score
         print(target_class, roc_score)
-
 
 
 if __name__ == '__main__':
