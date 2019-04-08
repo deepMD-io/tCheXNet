@@ -11,10 +11,11 @@ from generator import AugmentedImageSequence
 from main import target_classes
 from weights import get_class_weights
 
+
 def get_class_weight(csv_file_path, target_class):
     #total_counts - int
-    #class_positive_counts - dict of int, ex: {"Effusion": 300, "Infiltration": 500 ...}
-    #multiply - int, positve weighting multiply
+    # class_positive_counts - dict of int, ex: {"Effusion": 300, "Infiltration": 500 ...}
+    # multiply - int, positve weighting multiply
     '''
     df = pd.read_csv(csv_file_path)
     total_counts = df.shape[0]
@@ -68,7 +69,7 @@ def get_model():
     # this is the model we will use
     model = Model(
         inputs=base_model.input,
-    	outputs=predictions,
+        outputs=predictions,
     )
 
     # first: train only the top layers (which were randomly initialized)
@@ -94,6 +95,7 @@ def get_model():
     )
 
     return base_model, model
+
 
 def main():
     batch_size = 16
@@ -123,35 +125,35 @@ def main():
     # load old weights
     #old_model_name = 'keras_chexpert_pretrained_chexnet_512_6_epochs_10.h5'
     #model_path = os.path.join(save_dir, old_model_name)
-    #model.load_weights(model_path)
+    # model.load_weights(model_path)
 
     # print a model summary
-    #print_summary(model)
+    # print_summary(model)
 
     csv_file_path = 'chexpert/train_94482_frontal_6_classes_real_no_zeros_preprocessed.csv'
     #train_df = pd.read_csv(csv_file_path)
 
     class_weight = get_class_weight(
-                    csv_file_path,
-                    target_classes)
+        csv_file_path,
+        target_classes)
 
     train_generator = AugmentedImageSequence(
-                        dataset_csv_file=csv_file_path,
-                        class_names=target_classes,
-                        source_image_dir='./chexpert/',
-                        batch_size=batch_size)
+        dataset_csv_file=csv_file_path,
+        class_names=target_classes,
+        source_image_dir='./chexpert/',
+        batch_size=batch_size)
 
     csv_file_path = 'chexpert/train_23620_frontal_6_classes_real_no_zeros_preprocessed.csv'
     #valid_df = pd.read_csv(csv_file_path)
 
     valid_generator = AugmentedImageSequence(
-                        dataset_csv_file=csv_file_path,
-                        class_names=target_classes,
-                        source_image_dir='./chexpert/',
-                        batch_size=batch_size)
+        dataset_csv_file=csv_file_path,
+        class_names=target_classes,
+        source_image_dir='./chexpert/',
+        batch_size=batch_size)
 
-    STEP_SIZE_TRAIN=train_generator.steps
-    STEP_SIZE_VALID=valid_generator.steps
+    STEP_SIZE_TRAIN = train_generator.steps
+    STEP_SIZE_VALID = valid_generator.steps
 
     model.fit_generator(generator=train_generator,
                         steps_per_epoch=STEP_SIZE_TRAIN,
@@ -163,12 +165,11 @@ def main():
                         use_multiprocessing=True)
 
     # Save model and weights
-    #if not os.path.isdir(save_dir):
+    # if not os.path.isdir(save_dir):
     #    os.makedirs(save_dir)
     #model_path = os.path.join(save_dir, new_model_name)
-    #model.save(model_path)
+    # model.save(model_path)
     #print('Saved trained model at %s ' % model_path)
-
 
 
 if __name__ == '__main__':

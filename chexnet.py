@@ -10,20 +10,20 @@ chexnet_weights = 'chexnet/best_weights.h5'
 
 # chexnet class names
 chexnet_class_index_to_name = [
-    'Atelectasis', # 0
-    'Cardiomegaly', # 1
-    'Effusion', # 2
-    'Infiltration', # 3
-    'Mass', # 4
-    'Nodule', # 5
-    'Pneumonia', # 6
-    'Pneumothorax', # 7
-    'Consolidation', # 8
-    'Edema', # 9
-    'Emphysema', # 10
-    'Fibrosis', # 11
-    'Pleural_Thickening', # 12
-    'Hernia', #13
+    'Atelectasis',  # 0
+    'Cardiomegaly',  # 1
+    'Effusion',  # 2
+    'Infiltration',  # 3
+    'Mass',  # 4
+    'Nodule',  # 5
+    'Pneumonia',  # 6
+    'Pneumothorax',  # 7
+    'Consolidation',  # 8
+    'Edema',  # 9
+    'Emphysema',  # 10
+    'Fibrosis',  # 11
+    'Pleural_Thickening',  # 12
+    'Hernia',  # 13
 ]
 
 # chexnet class indexes
@@ -44,8 +44,10 @@ chexnet_class_name_to_index = {
     'Hernia': 13,
 }
 
+
 def chexnet_preprocess_input(value):
     return preprocess_input(value)
+
 
 def get_chexnet_model():
     input_shape = (224, 224, 3)
@@ -55,10 +57,10 @@ def get_chexnet_model():
     # create the base pre-trained model
     base_model = DenseNet121(
         include_top=False,
-    	input_tensor=img_input,
-    	input_shape=input_shape,
-    	weights=base_weights,
-    	pooling='avg'
+        input_tensor=img_input,
+        input_shape=input_shape,
+        weights=base_weights,
+        pooling='avg'
     )
 
     x = base_model.output
@@ -71,7 +73,7 @@ def get_chexnet_model():
     # this is the model we will use
     model = Model(
         inputs=img_input,
-    	outputs=predictions,
+        outputs=predictions,
     )
 
     # load chexnet weights
@@ -79,6 +81,7 @@ def get_chexnet_model():
 
     # return model
     return base_model, model
+
 
 if __name__ == '__main__':
     '''

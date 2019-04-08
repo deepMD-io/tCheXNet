@@ -4,14 +4,16 @@ import numpy as np
 
 # given a image path list
 # return a numpy array vertically stacking the images
+
+
 def get_image_numpy_array(image_path_list):
-    #A list of image paths
-    #image_path_list = [
+    # A list of image paths
+    # image_path_list = [
     #    'images/elephant.jpg',
     #    'images/2017-Honda-Civic-sedan-front-three-quarter.jpg',
-    #]
+    # ]
 
-    #A list of images
+    # A list of images
     image_list = []
 
     # load a file from each path
@@ -34,6 +36,8 @@ def get_image_numpy_array(image_path_list):
 # given a csv file
 # load the data
 # return x, y (numpy array)
+
+
 def load_data_from_csv(csv_file_path):
     dataset_df = pd.read_csv(csv_file_path)
 
@@ -43,15 +47,14 @@ def load_data_from_csv(csv_file_path):
     x = images
     y = dataset_df[
         ['Cardiomegaly',
-        'Edema',
-        'Consolidation',
-        'Pneumonia',
-        'Atelectasis',
-        'Pneumothorax',]
+         'Edema',
+         'Consolidation',
+         'Pneumonia',
+         'Atelectasis',
+         'Pneumothorax', ]
     ].to_numpy()
 
     return x, y
-
 
 
 if __name__ == '__main__':
