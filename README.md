@@ -10,13 +10,17 @@ https://stanfordmlgroup.github.io/competitions/chexpert/
 ```
 
 ## Environment
+* [Python 3.6](https://www.python.org/downloads/)
 * [Keras 2.2.4](https://keras.io)
-* [scikit-learn 0.20.3](http://scikit-learn.org/stable/index.html)
+* [scikit-learn 0.20.3](https://scikit-learn.org/stable/index.html)
+* [pandas 0.24.2](https://pandas.pydata.org/)
+* [Pillow 5.4.1](https://pillow.readthedocs.io/en/stable/)
+
 
 To run tCheXNet, run the following code to prepare a new anaconda environment
 
 ```
-conda create -n tCheXNet python=2.7 keras scikit-learn pandas PIL
+conda create -n tCheXNet python=3.6 keras scikit-learn pandas pillow
 ```
 
 To activate the environment, use
