@@ -50,4 +50,14 @@ def main():
 
 
 if __name__ == '__main__':
+    '''
+    What this script is doing is that
+    1. It first loads a tCheXNet nodel
+    2. It then made predictions on the Chexpert validation dataset (frontal only)
+       The validation data contains 202 frontal chest x-ray images,
+       from 200 unique patients.
+       It is the testing dataset for this study
+    3. The performance was then evaluated on one of the common classes, which is
+       'Pneumothorax'. Area under ROC curve is computed.
+    '''
     main()

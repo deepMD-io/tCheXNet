@@ -50,6 +50,6 @@ if __name__ == '__main__':
        from 200 unique patients.
        It is the testing dataset for this study
     3. The performance was then evaluated on one of the common classes, which is
-       'Pneumothorax',
+       'Pneumothorax'. Area under ROC curve is computed.
     '''
     main()

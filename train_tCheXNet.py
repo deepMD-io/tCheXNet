@@ -13,25 +13,6 @@ from weights import get_class_weights
 
 
 def get_class_weight(csv_file_path, target_class):
-    #total_counts - int
-    # class_positive_counts - dict of int, ex: {"Effusion": 300, "Infiltration": 500 ...}
-    # multiply - int, positve weighting multiply
-    '''
-    df = pd.read_csv(csv_file_path)
-    total_counts = df.shape[0]
-    class_positive_counts = {}
-    multiply = 1
-
-    for target_class in target_classes:
-        class_positive_counts[target_class] = df.loc[(df[target_class] == 1)].shape[0]
-
-    class_weight = get_class_weights(
-        total_counts,
-        class_positive_counts,
-        multiply
-    )
-    '''
-
     df = pd.read_csv(csv_file_path)
     total_counts = df.shape[0]
     class_weight = []
@@ -41,7 +22,7 @@ def get_class_weight(csv_file_path, target_class):
         weight_dict[1] = df.loc[(df[target_class] == 1)].shape[0] / total_counts
         class_weight.append(weight_dict)
 
-    print(class_weight)
+    #print(class_weight)
     return class_weight
 
 
@@ -173,4 +154,9 @@ def main():
 
 
 if __name__ == '__main__':
+    '''
+    What this script is doing is that
+    1. It trains a tCheXNet model
+    2. It saves the weights
+    '''
     main()
