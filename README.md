@@ -8,6 +8,10 @@ Please download the CheXpert dataset in the following link
 ```
 https://stanfordmlgroup.github.io/competitions/chexpert/
 ```
+After downloading the dataset, please put it under the directory of chexpert, as follows
+```
+chexpert/CheXpert-v1.0-small/
+```
 
 ## Environment
 * [Python 3.6](https://www.python.org/downloads/)
