@@ -8,8 +8,8 @@ from keras.callbacks import ModelCheckpoint
 import os
 import pandas as pd
 from generator import AugmentedImageSequence
-from main import target_classes
-from weights import get_class_weights
+from test_CheXNet import target_classes
+#from weights import get_class_weights
 
 
 def get_class_weight(csv_file_path, target_class):

@@ -1,9 +1,9 @@
-from train import get_model
+from train_tCheXNet import get_model
 from chexnet import chexnet_preprocess_input
 from preprocess import load_data_from_csv
 import os
 import pandas as pd
-from main import target_classes
+from test_CheXNet import target_classes
 from sklearn.metrics import roc_auc_score
 #from sklearn.metrics import average_precision_score
 
