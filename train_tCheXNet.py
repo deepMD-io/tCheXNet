@@ -11,6 +11,8 @@ from generator import AugmentedImageSequence
 from test_CheXNet import target_classes
 #from weights import get_class_weights
 
+# For Mac users
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 def get_class_weight(csv_file_path, target_class):
     df = pd.read_csv(csv_file_path)
