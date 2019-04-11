@@ -17,6 +17,7 @@ chexpert/CheXpert-v1.0-small/
 * [Python 3.6](https://www.python.org/downloads/)
 * [Keras 2.2.4](https://keras.io)
 * [scikit-learn 0.20.3](https://scikit-learn.org/stable/index.html)
+* [scikit-image 0.14.2](https://scikit-image.org/)
 * [pandas 0.24.2](https://pandas.pydata.org/)
 * [Pillow 5.4.1](https://pillow.readthedocs.io/en/stable/)
 
@@ -24,7 +25,7 @@ chexpert/CheXpert-v1.0-small/
 To run tCheXNet, run the following code to prepare a new anaconda environment
 
 ```
-conda create -n tCheXNet python=3.6 keras scikit-learn pandas pillow
+conda create -n tCheXNet python=3.6 keras scikit-learn scikit-image pandas pillow
 ```
 
 To activate the environment, use
