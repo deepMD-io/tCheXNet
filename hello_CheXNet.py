@@ -3,6 +3,7 @@ from chexnet import chexnet_preprocess_input
 from chexnet import chexnet_class_index_to_name
 from preprocess import get_image_numpy_array
 
+
 def main():
     # get model
     base_model, model = get_chexnet_model()
