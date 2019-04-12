@@ -10,7 +10,7 @@ def main():
 
     # prepare a list of images
     image_path_list = [
-        'hello_world_images/patient64541_view1_frontal.jpg',
+        'hello_world_images/view1_frontal.jpg',
     ]
 
     # convert the image into numpy array
