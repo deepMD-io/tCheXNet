@@ -38,7 +38,7 @@ conda activate tCheXNet
 To run tCheXNet, run the hello-world version which detects if there is Pneumothorax on an input image
 
 ```
-python hello_tCheXNet
+python hello_tCheXNet.py
 ```
 
 The expected output is as follows
@@ -47,3 +47,30 @@ The expected output is as follows
 hello_world_images/patient64541_view1_frontal.jpg
 Pneumothorax 0.12068107
 ```
+
+You may also want to run the hello-world version of CheXNet.
+
+```
+python hello_CheXNet.py
+```
+
+The expected output is as follows
+
+```
+hello_world_images/patient64541_view1_frontal.jpg
+Atelectasis 0.00013491511
+Cardiomegaly 0.0
+Effusion 1.552701e-05
+Infiltration 0.002756238
+Mass 2.115965e-06
+Nodule 6.943941e-06
+Pneumonia 0.0
+Pneumothorax 9.23872e-07
+Consolidation 2.682209e-06
+Edema 0.0
+Emphysema 0.0
+Fibrosis 0.0
+Pleural_Thickening 2.9556912e-07
+Hernia 1.0416657e-15
+```
+
