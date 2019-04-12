@@ -47,7 +47,7 @@ if __name__ == '__main__':
     '''
     What this script is doing is that
     1. It first loads a tCheXNet nodel
-    2. It then made predictions on the images on the image_path_list
+    2. It then makes predictions on the images on the image_path_list
     3. The probability of prediction across Pneumothorax is computed
     '''
     main()
