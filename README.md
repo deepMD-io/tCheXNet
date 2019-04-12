@@ -48,7 +48,7 @@ hello_world_images/patient64541_view1_frontal.jpg
 Pneumothorax 0.12068107
 ```
 
-You may also want to run the hello-world version of CheXNet.
+You may also want to run the hello-world version of CheXNet
 
 ```
 python hello_CheXNet.py
