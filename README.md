@@ -22,7 +22,7 @@ chexpert/CheXpert-v1.0-small/
 * [Pillow 5.4.1](https://pillow.readthedocs.io/en/stable/)
 
 
-To run tCheXNet, run the following code to prepare a new anaconda environment
+To setup the environment of tCheXNet, run the following code to prepare a new anaconda environment
 
 ```
 conda create -n tCheXNet python=3.6 keras scikit-learn scikit-image pandas pillow
@@ -32,4 +32,18 @@ To activate the environment, use
 
 ```
 conda activate tCheXNet
+```
+
+## Execution
+To run tCheXNet, run the hello-world version which detects if there is Pneumothorax on an input image
+
+```
+python hello_tCheXNet
+```
+
+The expected output is as follows
+
+```
+hello_world_images/patient64541_view1_frontal.jpg
+Pneumothorax 0.12068107
 ```
