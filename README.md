@@ -74,3 +74,16 @@ Pleural_Thickening 2.9556912e-07
 Hernia 1.0416657e-15
 ```
 
+You may also want to just obtain the features from CheXNet
+
+```
+python hello_CheXNet_features.py
+```
+
+The expected output is as follows
+
+```
+hello_world_images/view1_frontal.jpg
+1024 [4.2568310e-04 1.2489975e-03 3.7513447e-03 ... 8.4445912e-01 8.2507801e-01
+ 6.9122821e-01]
+```
