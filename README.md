@@ -28,6 +28,11 @@ To setup the environment of tCheXNet, run the following code to prepare a new an
 conda create -n tCheXNet python=3.6 keras scikit-learn scikit-image pandas pillow
 ```
 
+To enable GPU, please run the following script instead
+```
+conda create -n tCheXNet python=3.6 keras-gpu scikit-learn scikit-image pandas pillow
+```
+
 To activate the environment, use
 
 ```
