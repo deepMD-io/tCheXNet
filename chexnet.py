@@ -91,6 +91,6 @@ if __name__ == '__main__':
     2. It then print a summary of the model architecture
     '''
     # get model
-    model = get_chexnet_model()
+    base_model, model = get_chexnet_model()
     # print a model summary
     print_summary(model)
